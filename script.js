@@ -11,12 +11,12 @@ function displayWeatherInfo() {
     }).then(function (response) {
         console.log(response)
         console.log(response.city.name + ", " + response.city.country)
-        // var forecastDiv = document.createElement('div');
-        var forecastDiv = $("<div class='forecast'>");
+        var forecastDiv = document.createElement('div');
+        //var forecastDiv = $("<div class='forecast'>");
         //to create div and add city
-        document.body.append(forecastDiv);
+        //document.body.append(forecastDiv);
         var cityName = $("<p>").text(response.city.name + ", " + response.city.country);
-        console.log(cityName)
+        // console.log(cityName)
         forecastDiv.append(cityName);
         for (var i = 0; i < 5; i++) {
             //to create the 5 days
