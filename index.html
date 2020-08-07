@@ -17,6 +17,7 @@
     <button id="getCity" onclick="displayWeatherInfo()">Get Weather</button>
     <div id="forecast"></div>
     <Script>
+        var searchHistory = [];
         function displayWeatherInfo() {
 
             var city = $("#city-input").val();
@@ -68,9 +69,9 @@
                     forecastDiv.append(wind);
                     // console.log(response.city.coord.lat + "," + response.city.coord.lon)
                 }
-                // document.body.append(forecastDiv);
                 $("#forecast").prepend(forecastDiv);
             });
+            addHistory()
             // var lat = response.city.coord.lat;
             // var lon = response.city.coord.lon;
             // var queryUVI = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=7758a0a2e7e596b9ee3eb0ba1a3e2444";
@@ -92,6 +93,14 @@
         //     console.log(city)
         //     displayWeatherInfo(city)
         // });
+        function addHistory() {
+            var city = $("#city-input").val();
+            searchHistory.push(city);
+            console.log(searchHistory)
+        }
+        function loadHistory() {
+
+        }
     </Script>
 </body>
 
