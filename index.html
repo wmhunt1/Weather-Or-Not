@@ -12,14 +12,15 @@
 
 <body>
     <h1>Weather Or Not</h1>
-    <label for="city-input">Choose City</label>
-    <input type="text" id="city-input">
-    <button id="getCity" onclick="displayWeatherInfo()">Get Weather</button>
+    <label class="input" for="city-input">Choose City</label>
+    <input class="input" type="text" id="city-input">
+    <button class="input" id="getCity" onclick="displayWeatherInfo()">Get Weather</button>
     <div id="forecast"></div>
     <Script>
         var searchHistory = [];
         var lat = 0;
         var lon = 0;
+        //need to split this into today and 5 day
         function displayWeatherInfo() {
 
             var city = $("#city-input").val();
@@ -33,20 +34,18 @@
             }).then(function (response) {
                 console.log(response)
                 console.log(response.city.name + ", " + response.city.country)
-                //var forecastDiv = document.createElement('div');
-                var forecastDiv = $("<div class='forecast'>");
+                var forecastDiv = $("<div class='forecast'>")
                 var fiveDay = $("<h2>").text("Five Day Forecast");
-                forecastDiv.append(fiveDay);
-                //to create div and add city
-                //document.body.append(forecastDiv);
+                //to create div and add city;
                 var cityName = response.city.name + ", " + response.city.country;
-                var cityDiv = $("<p>").text(cityName);
+                var fiveDay = $("<h2>").text("Five Day Forecast for: " + cityName);
+                forecastDiv.append(fiveDay);
                 console.log(city)
-                // console.log(cityName)
-                forecastDiv.append(cityDiv);
+                console.log(cityName)
+                var todayWeather = $("<h3>").text("Today's Weather");
+                forecastDiv.append(todayWeather);
                 for (var i = 0; i < 5; i++) {
-                    //to create the 5 days
-                    var day = $("<p>").text("Day " + (i + 1) + ": " + response.list[8 * i].dt_txt);
+                    var day = $("<h4>").text("Day " + (i + 1) + ": " + response.list[8 * i].dt_txt);
                     forecastDiv.append(day);
                     //keep track of day
                     console.log("Day " + (i + 1))
@@ -86,8 +85,8 @@
                     forecastDiv.append(uviHeading);
                     console.log(UVI)
                     for (var i = 0; i < 5; i++) {
-                        console.log(UVI[i].value + " UVI")
-                        var uvi = $("<p>").text("Day " + (i + 1) + ": " + UVI[i].value + " UVI");
+                        console.log(UVI[i].value + " UVI ")
+                        var uvi = $("<p>").text("Day " + (i + 1) + ": " + UVI[i].value + " UVI ");
                         if (3 > UVI[i].value && UVI[i].value >= 0) {
                             console.log("low")
                             uvi.attr
