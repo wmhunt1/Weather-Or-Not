@@ -44,35 +44,34 @@
                 forecastDiv.append(cityDiv);
                 for (var i = 0; i < 5; i++) {
                     //to create the 5 days
-                    //4*(i+1) shows weather at noon
-                    var day = $("<p>").text("Day " + (i + 1) + ": " + response.list[4 * (i + 1)].dt_txt);
+                    var day = $("<p>").text("Day " + (i + 1) + ": " + response.list[8 * i].dt_txt);
                     forecastDiv.append(day);
                     //keep track of day
                     console.log("Day " + (i + 1))
                     //weather and description
-                    console.log("Weather: " + response.list[4 * (i + 1)].weather[0].main)
-                    var weather = $("<p>").text("Weather: " + response.list[4 * (i + 1)].weather[0].main + "( " + response.list[i].weather[0].description + ")");
+                    console.log("Weather: " + response.list[8 * i].weather[0].main)
+                    var weather = $("<p>").text("Weather: " + response.list[8 * i].weather[0].main + "( " + response.list[i].weather[0].description + ")");
                     forecastDiv.append(weather);
                     //icon
                     var icon = response.list[i].weather[0].icon;
-                    var imgURL = "http://openweathermap.org/img/wn/" + response.list[4 * (i + 1)].weather[0].icon + "@2x.png";
+                    var imgURL = "http://openweathermap.org/img/wn/" + response.list[8 * i].weather[0].icon + "@2x.png";
                     var image = $("<img>").attr("src", imgURL);
                     forecastDiv.append(image);
                     //temperature
-                    console.log((response.list[4 * (i + 1)].main.temp) + " Kelvin")
-                    var temperature = $("<p>").text((response.list[4 * (i + 1)].main.temp - 273) + " celcius");
+                    console.log((response.list[8 * i].main.temp) + " Kelvin")
+                    var temperature = $("<p>").text((response.list[8 * i].main.temp - 273) + " celcius");
                     forecastDiv.append(temperature);
                     //humidity
                     console.log((response.list[8 * i].main.humidity) + "% humidity")
-                    var humidity = $("<p>").text((response.list[4 * (i + 1)].main.humidity) + "% humidity");
+                    var humidity = $("<p>").text((response.list[8 * i].main.humidity) + "% humidity");
                     forecastDiv.append(humidity);
                     //wind speed
                     console.log((response.list[8 * i].wind.speed) + " kmh wind speed")
-                    var wind = $("<p>").text((response.list[4 * (i + 1)].wind.speed) + " kmh wind speed");
+                    var wind = $("<p>").text((response.list[8 * i].wind.speed) + " kmh wind speed");
                     forecastDiv.append(wind);
                     // console.log(response.city.coord.lat + "," + response.city.coord.lon)
                 }
-              
+
                 addHistory()
                 lat = response.city.coord.lat;
                 lon = response.city.coord.lon;
