@@ -35,6 +35,8 @@
                 console.log(response.city.name + ", " + response.city.country)
                 //var forecastDiv = document.createElement('div');
                 var forecastDiv = $("<div class='forecast'>");
+                var fiveDay = $("<h2>").text("Five Day Forecast");
+                forecastDiv.append(fiveDay);
                 //to create div and add city
                 //document.body.append(forecastDiv);
                 var cityName = response.city.name + ", " + response.city.country;
@@ -50,7 +52,7 @@
                     console.log("Day " + (i + 1))
                     //weather and description
                     console.log("Weather: " + response.list[8 * i].weather[0].main)
-                    var weather = $("<p>").text("Weather: " + response.list[8 * i].weather[0].main + "( " + response.list[i].weather[0].description + ")");
+                    var weather = $("<p>").text("Weather: " + response.list[8 * i].weather[0].main + " (" + response.list[i].weather[0].description + ")");
                     forecastDiv.append(weather);
                     //icon
                     var icon = response.list[i].weather[0].icon;
@@ -80,43 +82,45 @@
                     url: queryUVI,
                     method: "GET"
                 }).then(function (UVI) {
+                    var uviHeading = $("<h2>").text("UVI Index");
+                    forecastDiv.append(uviHeading);
                     console.log(UVI)
                     for (var i = 0; i < 5; i++) {
                         console.log(UVI[i].value + " UVI")
-                        var uvi = $("<p>").text(UVI[i].value + " UVI");
+                        var uvi = $("<p>").text("Day " + (i + 1) + ": " + UVI[i].value + " UVI");
                         if (3 > UVI[i].value && UVI[i].value >= 0) {
                             console.log("low")
                             uvi.attr
                                 ({
-                                    "class": "low",
+                                    "class": "uvi low",
                                 })
                         }
                         else if (6 > UVI[i].value && UVI[i].value >= 3) {
                             console.log("moderate")
                             uvi.attr
                                 ({
-                                    "class": "moderate",
+                                    "class": "uvi moderate",
                                 })
                         }
                         else if (8 > UVI[i].value && UVI[i].value >= 6) {
-                            console.log("high")
+                            console.log("uvi high")
                             uvi.attr
                                 ({
-                                    "class": "high",
+                                    "class": "uvi high",
                                 })
                         }
                         else if (11 > UVI[i].value && UVI[i].value >= 8) {
                             console.log("very high")
                             uvi.attr
                                 ({
-                                    "class": "very_high",
+                                    "class": "uvi very_high",
                                 })
                         }
                         else if (UVI[i].value >= 11) {
                             console.log("extreme")
                             uvi.attr
                                 ({
-                                    "class": "extreme",
+                                    "class": "uvi extreme",
                                 })
                         }
                         else {
