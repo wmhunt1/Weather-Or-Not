@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,14 +14,15 @@
     <h1>Weather Or Not</h1>
     <label class="input" for="city-input">Choose City</label>
     <input class="input" type="text" id="city-input">
-    <button class="input" id="getCity" onclick="displayWeatherInfo()">Get Weather</button>
+    <button class="input" id="getCity" onclick="displayWeatherInfo(1)">Get Today's Weather</button>
+    <button class="input" id="getCity" onclick="displayWeatherInfo(5)">Get 5 Day Forecast</button>
     <div id="forecast"></div>
     <Script>
         var searchHistory = [];
         var lat = 0;
         var lon = 0;
         //need to split this into today and 5 day
-        function displayWeatherInfo() {
+        function displayWeatherInfo(x) {
 
             var city = $("#city-input").val();
             // var city = $(this).attr("data-name");
@@ -34,43 +35,61 @@
             }).then(function (response) {
                 console.log(response)
                 console.log(response.city.name + ", " + response.city.country)
-                var forecastDiv = $("<div class='forecast'>")
-                var fiveDay = $("<h2>").text("Five Day Forecast");
+                var forecastDiv = $("<div class='forecast'>");
                 //to create div and add city;
                 var cityName = response.city.name + ", " + response.city.country;
-                var fiveDay = $("<h2>").text("Five Day Forecast for: " + cityName);
-                forecastDiv.append(fiveDay);
                 console.log(city)
-                console.log(cityName)
-                var todayWeather = $("<h3>").text("Today's Weather");
-                forecastDiv.append(todayWeather);
-                for (var i = 0; i < 5; i++) {
+                // console.log(cityName)
+                if (x == 1) {
+                    var todayWeather = $("<h2>").text("Today's Weather for: " + cityName);
+                    forecastDiv.append(todayWeather);
+                    console.log(cityName)
+                }
+                else {
+                    var fiveDay = $("<h2>").text("Five Day Forecast for: " + cityName);
+                    forecastDiv.append(fiveDay);
+                    console.log(cityName)
+                }
+                for (var i = 0; i < x; i++) {
+                    var summaryDiv = $("<div>").attr
+                        ({
+                            "class": "detail",
+                        });
                     var day = $("<h4>").text("Day " + (i + 1) + ": " + response.list[8 * i].dt_txt);
-                    forecastDiv.append(day);
+                    summaryDiv.append(day);
                     //keep track of day
                     console.log("Day " + (i + 1))
                     //weather and description
                     console.log("Weather: " + response.list[8 * i].weather[0].main)
                     var weather = $("<p>").text("Weather: " + response.list[8 * i].weather[0].main + " (" + response.list[i].weather[0].description + ")");
-                    forecastDiv.append(weather);
+                    summaryDiv.append(weather);
                     //icon
                     var icon = response.list[i].weather[0].icon;
                     var imgURL = "http://openweathermap.org/img/wn/" + response.list[8 * i].weather[0].icon + "@2x.png";
                     var image = $("<img>").attr("src", imgURL);
-                    forecastDiv.append(image);
+                    summaryDiv.append(image);
+                    forecastDiv.append(summaryDiv);
+                    var detailDiv = $("<div>").attr
+                        ({
+                            "class": "detail",
+                        });
+                    var details = $("<h4>").text("Details");
+                    detailDiv.append(details);
+                    // forecastDiv.append(detailDiv);
                     //temperature
                     console.log((response.list[8 * i].main.temp) + " Kelvin")
-                    var temperature = $("<p>").text((response.list[8 * i].main.temp - 273) + " celcius");
-                    forecastDiv.append(temperature);
+                    var temperature = $("<p>").text(("Temperature: " + (response.list[8 * i].main.temp - 273) + " celcius"));
+                    detailDiv.append(temperature);
                     //humidity
-                    console.log((response.list[8 * i].main.humidity) + "% humidity")
-                    var humidity = $("<p>").text((response.list[8 * i].main.humidity) + "% humidity");
-                    forecastDiv.append(humidity);
+                    console.log((response.list[8 * i].main.humidity) + "%")
+                    var humidity = $("<p>").text(("Humidity: " + response.list[8 * i].main.humidity) + "%");
+                    detailDiv.append(humidity);
                     //wind speed
                     console.log((response.list[8 * i].wind.speed) + " kmh wind speed")
-                    var wind = $("<p>").text((response.list[8 * i].wind.speed) + " kmh wind speed");
-                    forecastDiv.append(wind);
+                    var wind = $("<p>").text(("Wind Speed: " + response.list[8 * i].wind.speed) + " kmh");
+                    detailDiv.append(wind);
                     // console.log(response.city.coord.lat + "," + response.city.coord.lon)
+                    forecastDiv.append(detailDiv);
                 }
 
                 addHistory()
@@ -81,12 +100,16 @@
                     url: queryUVI,
                     method: "GET"
                 }).then(function (UVI) {
+                    var uviDiv = $("<div>").attr
+                        ({
+                            "class": "detail",
+                        });
                     var uviHeading = $("<h2>").text("UVI Index");
-                    forecastDiv.append(uviHeading);
+                    uviDiv.append(uviHeading);
                     console.log(UVI)
-                    for (var i = 0; i < 5; i++) {
+                    for (var i = 0; i < x; i++) {
                         console.log(UVI[i].value + " UVI ")
-                        var uvi = $("<p>").text("Day " + (i + 1) + ": " + UVI[i].value + " UVI ");
+                        var uvi = $("<p>").text("Day " + (i + 1) + ": " + UVI[i].value + " ");
                         if (3 > UVI[i].value && UVI[i].value >= 0) {
                             console.log("low")
                             uvi.attr
@@ -125,8 +148,9 @@
                         else {
                             console.log("out of range")
                         }
-                        forecastDiv.append(uvi);
+                        uviDiv.append(uvi);
                     }
+                    forecastDiv.append(uviDiv);
                 });
                 $("#forecast").prepend(forecastDiv);
             });

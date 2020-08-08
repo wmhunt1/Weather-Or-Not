@@ -13,32 +13,39 @@ button
 {
     text-align: center;
 }
-p
+/* .forecast
 {
-    border: black;
+    column-count: 5;
+} */
+.detail
+{
+    border: 1px solid black;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-bottom: 10px;
 }
 .uvi
 {
     display: inline;
-    background-color: white;
+    border: 1px solid black;
 }
 .low
 {
-   color: green;
+   background-color: green;
 }
 .moderate
 {
-    color: yellow;
+    background-color: yellow;
 }
 .high
 {
-    color: orange;
+    background-color: orange;
 }
 .very_high
 {
-    color: red;
+    background-color: red;
 }
 .extreme
 {
-    color: violet;
+    background-color: violet;
 }
