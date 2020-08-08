@@ -43,21 +43,27 @@
                 console.log(city)
                 // console.log(cityName)
                 if (x == 1) {
-                    var todayWeather = $("<h2>").text("Today's Weather for: " + cityName);
+                    var todayWeather = $("<h2>").text("Today's Weather for: " + cityName).attr
+                        ({
+                            "class": "title",
+                        });
                     forecastDiv.append(todayWeather);
                     console.log(cityName)
                     var columnDiv = $("<div>").attr
                         ({
-                            "margin-left": "10%",
-                            "margin-right": "10%",
+                            "id": "today",
                         });
                 }
                 else {
-                    var fiveDay = $("<h2>").text("Five Day Forecast for: " + cityName);
+                    var fiveDay = $("<h2>").text("Five Day Forecast for: " + cityName).attr
+                        ({
+                            "class": "title",
+                        });
                     forecastDiv.append(fiveDay);
                     console.log(cityName)
                     var columnDiv = $("<div>").attr
                         ({
+                            "id": "five-day",
                             "class": "forecast",
                         });
                 }
@@ -90,7 +96,7 @@
                     // forecastDiv.append(detailDiv);
                     //temperature
                     console.log((response.list[8 * i].main.temp) + " Kelvin")
-                    var temperature = $("<p>").text(("Temperature: " + (response.list[8 * i].main.temp - 273) + " celcius"));
+                    var temperature = $("<p>").text(("Temperature: " + (response.list[8 * i].main.temp - 273).toFixed(2) + " C"));
                     detailDiv.append(temperature);
                     //humidity
                     console.log((response.list[8 * i].main.humidity) + "%")
@@ -98,7 +104,7 @@
                     detailDiv.append(humidity);
                     //wind speed
                     console.log((response.list[8 * i].wind.speed) + " kmh wind speed")
-                    var wind = $("<p>").text(("Wind Speed: " + response.list[8 * i].wind.speed) + " kmh");
+                    var wind = $("<p>").text(("Wind Speed: " + (response.list[8 * i].wind.speed).toFixed(2) + " kmh"));
                     detailDiv.append(wind);
                     // console.log(response.city.coord.lat + "," + response.city.coord.lon)
                     columnDiv.append(detailDiv);
@@ -115,6 +121,7 @@
                     var uviDiv = $("<div>").attr
                         ({
                             "class": "detail",
+                            "id": "uvi-div"
                         });
                     var uviHeading = $("<h2>").text("UVI Index");
                     uviDiv.append(uviHeading);
