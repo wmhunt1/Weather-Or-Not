@@ -3,6 +3,12 @@ body
     text-align: center;
     background-color: skyblue;
 }
+header
+{
+    border: 1px solid black;
+    padding-bottom: 10px;
+    background-color: yellow;
+}
 img
 {
     display: block;
@@ -13,16 +19,16 @@ button
 {
     text-align: center;
 }
-/* .forecast
+.forecast
 {
+    /* padding-top: 10px; */
     column-count: 5;
-} */
+    column-width: auto;
+}
 .detail
 {
-    border: 1px solid black;
-    margin-left: 20%;
-    margin-right: 20%;
-    padding-bottom: 10px;
+    border: 1px solid rgb(63, 59, 59);
+    /* padding-bottom: 10px; */
 }
 .uvi
 {
