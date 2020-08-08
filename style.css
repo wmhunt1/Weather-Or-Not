@@ -1,0 +1,20 @@
+.low
+{
+   color: green;
+}
+.moderate
+{
+    color: yellow;
+}
+.high
+{
+    color: orange;
+}
+.very_high
+{
+    color: red;
+}
+.extreme
+{
+    color: violet;
+}
