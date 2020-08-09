@@ -187,7 +187,7 @@
             var storedHistory = JSON.parse(localStorage.getItem("search-history"));
             searchHistory = storedHistory;
             //creates search history dropdown
-            if (searchHistory.length != null) {
+            if (searchHistory == "undefined") {
                 var select = document.getElementById("history-select");
 
                 for (var i = 0; i < searchHistory.length; i++) {
