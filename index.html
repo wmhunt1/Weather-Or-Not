@@ -18,6 +18,9 @@
         <input class="input" type="text" id="city-input">
         <button class="input" id="getCity" onclick="forecastToday()">Get Today's Weather</button>
         <button class="input" id="getCity" onclick="forecastFive()">Get 5 Day Forecast</button>
+        <label class="input" for="history">Search History</label>
+        <select name="history" id="history-select"></select>
+
     </header>
     <div id="forecast"></div>
     <Script>
@@ -183,17 +186,24 @@
         function loadHistory() {
             var storedHistory = JSON.parse(localStorage.getItem("search-history"));
             searchHistory = storedHistory;
+            var select = document.getElementById("history-select");
+
+            for (var i = 0; i < searchHistory.length; i++) {
+                var opt = searchHistory[i];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = opt;
+                select.appendChild(el);
+            }
         }
         //loads last entry in history
         function loadLast_City() {
             loadHistory()
-            if (searchHistory != "undefined")
-            {
-            city = searchHistory[searchHistory.length-1];
-            displayWeatherInfo(5)
+            if (searchHistory != "undefined") {
+                city = searchHistory[searchHistory.length - 1];
+                displayWeatherInfo(5)
             }
-            else
-            {
+            else {
                 console.log("no search history")
             }
         }
