@@ -206,7 +206,8 @@
         //loads last entry in history
         function loadLast_City() {
             loadHistory()
-            if (searchHistory != "undefined") {
+            if (searchHistory != "undefined" && searchHistory != null && searchHistory.length != null
+                && searchHistory.length > 0) {
                 city = searchHistory[searchHistory.length - 1];
                 displayWeatherInfo(5)
             }
