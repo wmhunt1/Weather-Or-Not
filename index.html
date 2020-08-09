@@ -19,7 +19,7 @@
         <button class="input" id="getCity" onclick="forecastToday()">Get Today's Weather</button>
         <button class="input" id="getCity" onclick="forecastFive()">Get 5 Day Forecast</button>
         <label class="input" for="history">Search History</label>
-        <select name="history" id="history-select"></select>
+        <select name="history" id="history-select" onselect="historyForecast()"></select>
 
     </header>
     <div id="forecast"></div>
@@ -186,6 +186,7 @@
         function loadHistory() {
             var storedHistory = JSON.parse(localStorage.getItem("search-history"));
             searchHistory = storedHistory;
+            //creates search history dropdown
             var select = document.getElementById("history-select");
 
             for (var i = 0; i < searchHistory.length; i++) {
@@ -218,6 +219,12 @@
             displayWeatherInfo(5)
             addHistory()
         }
+        $("#history-select").change(function historyForecast()
+        {
+            city = $("#history-select").val();
+            displayWeatherInfo(5)
+        });
+
     </Script>
 </body>
 
