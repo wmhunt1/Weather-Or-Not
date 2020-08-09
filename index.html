@@ -21,7 +21,7 @@
     </header>
     <div id="forecast"></div>
     <Script>
-        var searchHistory = [];
+        var searchHistory = ["Boston"];
         var lat = 0;
         var lon = 0;
         var city = "";
@@ -173,18 +173,23 @@
             });
 
         }
+        //adds to history
         function addHistory() {
             var city = $("#city-input").val();
             searchHistory.push(city);
             console.log(searchHistory)
+            localStorage.setItem("search-history", JSON.stringify(searchHistory));
         }
         function loadHistory() {
+            var storedHistory = JSON.parse(localStorage.getItem("search-history"));
+            searchHistory = storedHistory;
         }
+        //loads last entry in history
         function loadLast_City() {
             loadHistory()
-            if (searchHistory == "undefined")
+            if (searchHistory != "undefined")
             {
-            city = searchHistory[0];
+            city = searchHistory[searchHistory.length-1];
             displayWeatherInfo(5)
             }
             else
@@ -192,6 +197,7 @@
                 console.log("no search history")
             }
         }
+        //function for today and 5 dave forecast
         function forecastToday() {
             city = $("#city-input").val();
             displayWeatherInfo(1)
