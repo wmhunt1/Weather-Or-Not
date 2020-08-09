@@ -187,14 +187,19 @@
             var storedHistory = JSON.parse(localStorage.getItem("search-history"));
             searchHistory = storedHistory;
             //creates search history dropdown
-            var select = document.getElementById("history-select");
+            if (searchHistory.length != null) {
+                var select = document.getElementById("history-select");
 
-            for (var i = 0; i < searchHistory.length; i++) {
-                var opt = searchHistory[i];
-                var el = document.createElement("option");
-                el.textContent = opt;
-                el.value = opt;
-                select.appendChild(el);
+                for (var i = 0; i < searchHistory.length; i++) {
+                    var opt = searchHistory[i];
+                    var el = document.createElement("option");
+                    el.textContent = opt;
+                    el.value = opt;
+                    select.appendChild(el);
+                }
+            }
+            else {
+
             }
         }
         //loads last entry in history
@@ -219,8 +224,7 @@
             displayWeatherInfo(5)
             addHistory()
         }
-        $("#history-select").change(function historyForecast()
-        {
+        $("#history-select").change(function historyForecast() {
             city = $("#history-select").val();
             displayWeatherInfo(5)
         });
